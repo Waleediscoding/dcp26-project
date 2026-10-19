@@ -5,7 +5,6 @@
 # Questions
 
 # Data Dictionary
-
 # Description of the project
 
 # Instructions for use
