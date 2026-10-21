@@ -1,7 +1,7 @@
 Date,Day,Sleep (Hours),Reading (Minutes),Gaming (Minutes),Studying (Minutes),Programming (Minutes),Misc Leisure (Minutes),Productivity
 19/10/2026,Monday,9,30,80,45,120,240,MODERATE
-20/10/2026,Tuesday,7,60,0,60,20,240,MODERATE
-21/10/2026,Wednesday,,,,,,,
+20/10/2026,Tuesday,7,60,0,60,20,320,LOW
+21/10/2026,Wednesday,9,90,0,45,120,320,HIGH
 22/10/2026,Thursday,,,,,,,
 23/10/2026,Friday,,,,,,,
 24/10/2026,Saturday,,,,,,,
