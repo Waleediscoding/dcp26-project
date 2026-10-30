@@ -3,8 +3,29 @@
 - [Assignment Brief](assignment.md)
 
 # Questions
+* During which days am I most and least productive?
+* What relationship exists between studying and programming? Are they both proportional/inversely proportional to each other?
+* Does sleep hours affect productivity?
+* Does gaming affect sleep hours?
 
 # Data Dictionary
+The database contains 8 attributes, and 1 metadata attribute, which are as follows:
+```
+Date         | Qualitative Ordinal   | meta
+
+Day          | Qualitative Nominal   | tracked  (via calendar)
+Sleep        | Quantitative Discrete | measured (hrs)
+Reading      | Quantitative Discrete | measured (min)
+Gaming       | Quantitative Discrete | measured (min)
+Studying     | Quantitative Discrete | measured (min)
+Programming  | Quantitative Discrete | measured (min)
+Misc Leisure | Quantitative Discrete | measured (min)
+
+Productivity | Qualitative Ordinal   | produced (via classifier)
+```
+Productivity is measured by a simple tree classifier; provided below in LaTeX notation:
+[Classifier](assets/classifier_model_latex.png)
+
 # Description of the project
 
 # Instructions for use
