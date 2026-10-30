@@ -25,7 +25,7 @@ Productivity | Qualitative Ordinal   | produced (via classifier)
 ```
 Productivity is measured by a simple tree classifier; provided below in LaTeX notation:
 
-[Classifier](assets/classifier_model_latex.png)
+![Classifier](assets/classifier_model_latex.png)
 
 # Description of the project
 
