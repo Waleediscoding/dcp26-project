@@ -27,6 +27,16 @@ Productivity is measured by a simple tree classifier; provided below in LaTeX no
 
 ![Classifier](assets/classifier_model_latex.png)
 
+The classifier as shown above is implemented in Excel, and exported as a .csv
+
+## First Three rows of the Dataset (Compact)
+| Date | Day | Sleep (Hours) | Reading (Minutes) | ... | Misc Leisure (Minutes) | Productivity |
+|-------|-----|--------------|-------------------|-----|-------------------------|-------------|
+| 19/10/2026 | Monday | 9 | 30 | ... | 240 | MODERATE
+| 20/10/2026 | Tuesday | 7 | 60 | ... | 320 | LOW
+| 21/10/2026 | Wednesday | 9 | 90 | ... | 320 | MODERATE
+
+The full .csv dataset available [here](dataset/productivity_metrics.csv) (incomplete).
 # Description of the project
 
 # Instructions for use
