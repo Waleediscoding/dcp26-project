@@ -38,13 +38,14 @@ The classifier as shown above is implemented in Excel, and exported as a .csv
 
 The full .csv dataset available [here](dataset/productivity_metrics.csv) (incomplete).
 # Description of the project
-The project revolves around tracking my habits in a quantitative format, and producing a productivity score from it. The goal of the project is to answer some interesting [questions](Questions) about my day-to-day life through data graphs, also create an interface to display the graphs, and allow users to query the database for their perusal.
+The project revolves around tracking my habits in a quantitative format, and producing a productivity score from it. The goal of the project is to answer some interesting [questions](#questions) about my day-to-day life through data graphs, also create an interface to display the graphs, and allow users to query the database for their perusal.
 
 I plan to use
 - Python: as the programming language for the project infrastructure
 - Pandas: for data manipulation
 - Tkinter: for creating  the interface
 - SQLite3: an SQL API to enable data querying
+
 *List subject to change
 # Instructions for use
 
