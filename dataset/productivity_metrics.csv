@@ -11,7 +11,7 @@ Date,Day,Sleep (Hours),Reading (Minutes),Gaming (Minutes),Studying (Minutes),Pro
 28/10/2026,Wednesday,6,30,0,80,20,300,LOW
 29/10/2026,Thursday,6,20,0,60,40,240,LOW
 30/10/2026,Friday,8,30,0,45,180,200,HIGH
-31/10/2026,Saturday,,,,,,,#DIV/0!
+31/10/2026,Saturday,8,10,0,20,240,280,HIGH
 01/11/2026,Sunday,,,,,,,#DIV/0!
 02/11/2026,Monday,,,,,,,#DIV/0!
 03/11/2026,Tuesday,,,,,,,#DIV/0!
