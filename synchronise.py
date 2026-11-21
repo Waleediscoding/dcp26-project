@@ -1,3 +1,7 @@
+"""
+Important notice: Do not run this file if database is already in use.
+"""
+
 import pandas as pd
 import sqlite3
 
