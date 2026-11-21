@@ -7,7 +7,7 @@
 * What relationship exists between studying and programming? Are they both proportional/inversely proportional to each other?
 * Does sleep hours affect productivity?
 * Does gaming affect sleep hours?
-* What was the progression of minutes I read books each day? Was it positive/negative/stagnant?
+* What was the progression of reading books each day? Was it positive/negative/stagnant?
 
 # Data Dictionary
 The database contains a table called *productivity_metrics*, which contains 9 attributes, which are as follows:
