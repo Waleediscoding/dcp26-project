@@ -7,11 +7,12 @@
 * What relationship exists between studying and programming? Are they both proportional/inversely proportional to each other?
 * Does sleep hours affect productivity?
 * Does gaming affect sleep hours?
+* What was the progression of minutes I read books each day? Was it positive/negative/stagnant?
 
 # Data Dictionary
-The database contains 8 attributes, and 1 metadata attribute, which are as follows:
+The database contains a table called *productivity_metrics*, which contains 9 attributes, which are as follows:
 ```
-Date         | Qualitative Ordinal   | meta
+Date         | Qualitative Ordinal   | tracked  (via calendar)
 
 Day          | Qualitative Nominal   | tracked  (via calendar)
 Sleep        | Quantitative Discrete | measured (hrs)
@@ -23,7 +24,7 @@ Misc Leisure | Quantitative Discrete | measured (min)
 
 Productivity | Qualitative Ordinal   | produced (via classifier)
 ```
-Productivity is measured by a simple tree classifier; provided below in LaTeX notation:
+Productivity is measured by a simple tree classifier; provided below in LaTeX notation (view in dark mode):
 
 ![Classifier](assets/classifier_model_latex.png)
 
@@ -46,7 +47,7 @@ I plan to use
 - Tkinter: for creating  the interface
 - SQLite3: an SQL API to enable data querying
 
-*List subject to change
+*List may change
 # Instructions for use
 
 # How it works:
@@ -58,8 +59,7 @@ I plan to use
 | Files | Source |
 |-----------|-----------|
 | main.py | Self written |
-| test.py | Modified from [reference]() |
-| test.py | From [reference]() |
+| synchronise.py | Self written |
 
 # References
 * Item 1
