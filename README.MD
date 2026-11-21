@@ -6,8 +6,8 @@
 * During which days am I most and least productive?
 * What relationship exists between studying and programming? Are they both proportional/inversely proportional to each other?
 * Does sleep hours affect productivity?
-* Does gaming affect sleep hours?
 * What was the progression of reading books each day? Was it positive/negative/stagnant?
+* What is the distribution of 'low', 'moderate', and 'high' productivity classes
 
 # Data Dictionary
 The database contains a table called *productivity_metrics*, which contains 9 attributes, which are as follows:
@@ -28,7 +28,7 @@ Productivity is measured by a simple tree classifier; provided below in LaTeX no
 
 ![Classifier](assets/classifier_model_latex.png)
 
-The classifier as shown above is implemented in Excel, and exported as a .csv
+The classifier as shown above is computed in Excel, and the Excel file is exported as a .csv
 
 ## First Three rows of the Dataset (Compact)
 | Date | Day | Sleep (Hours) | Reading (Minutes) | ... | Misc Leisure (Minutes) | Productivity |
@@ -37,7 +37,8 @@ The classifier as shown above is implemented in Excel, and exported as a .csv
 | 20/10/2026 | Tuesday | 7 | 60 | ... | 320 | LOW
 | 21/10/2026 | Wednesday | 9 | 90 | ... | 320 | MODERATE
 
-The full .csv dataset available [here](dataset/productivity_metrics.csv) (incomplete).
+The full .csv dataset available [here](dataset/productivity_metrics.csv).
+
 # Description of the project
 The project revolves around tracking my habits in a quantitative format, and producing a productivity score from it. The goal of the project is to answer some interesting [questions](#Questions) about my day-to-day life through data graphs, also create an interface to display the graphs, and allow users to query the database for their perusal.
 
@@ -47,7 +48,6 @@ I plan to use
 - Tkinter: for creating  the interface
 - SQLite3: an SQL API to enable data querying
 
-*List may change
 # Instructions for use
 
 # How it works:
@@ -56,10 +56,11 @@ I plan to use
 
 # List of files in the project
 
-| Files | Source |
-|-----------|-----------|
-| main.py | Self written |
-| synchronise.py | Self written |
+| Files | Source | Description |
+|-----------|-----------|-------|
+| main.py | Self-written | Starts the program |
+| synchronise.py | Self-written | Synchronises database with the .csv |
+| application.py | Self-written | Contains the GUI code |
 
 # References
 * Item 1
