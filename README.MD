@@ -49,17 +49,44 @@ I plan to use
 - SQLite3: an SQL API to enable data querying
 
 # Instructions for use
+Run
+```
+> python main.py
+```
+To initiate a dashboard instance.
+
+Shortcuts for speed of use are available in the 'Help' section of the dashboard.
 
 # How it works:
+## Contents
+The program consists of 4 main pages, which are as follows:
+- Data Graph: 5 graphs/charts that help answer the 5 [questions](#questions)
+- Query: a way to enter read-only SQL queries, whose results are logged into the console
+- Insertion: a way to enter insertion queries and insert rows into the table *productivity_metrics*
+- Help: contains helpful shortcuts
+
+There also is a *QUIT* button, which kills the program.
+
+All these pages are contained in a window which is named *Dashboard*.
+
+## Runtime Behaviour
+- When a dashboard is initiated after running `main.py`, a connection to the database is established via *SQLite3*
+- The connection is then borrowed to the three pages (Data Graph, Query, Insertion) that interact with the database in some way
+- The 'borrowing' is done via a class which establishes the connection, stores it in an object, and lends itself to be inherited by classes that require it
+- To load the appropriate data for each graph, I hardcoded specific SQL queries and stored them in a list of dictionaries also containing the graph's title, and x-y labels
+- The queires are ran via pandas' read_sql() API and stored in a df object to be used as data
+- To insert graphs as Tkinter objects, I used the Matplotlib backend *FigureCanvasTkAgg* which converts a Matplotlib figure to a Tkinter canvas
+- To let the user run read-only and insertion queries, I grabbed the text from the *Entry* widget and put it into read_sql() and conn.cursor.execute() respectively
 
 # Findings
+
 
 # List of files in the project
 
 | Files | Source | Description |
 |-----------|-----------|-------|
 | main.py | Self-written | Starts the program |
-| synchronise.py | Self-written | Synchronises database with the .csv |
+| synchronise.py | Self-written | Synchronises .csv with the database |
 | application.py | Self-written | Contains the GUI code |
 | config.py | Self-written | Contains the relative dimensions/positions for each GUI widget |
 
