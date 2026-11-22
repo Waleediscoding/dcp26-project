@@ -80,23 +80,33 @@ All these pages are contained in a window which is named *Dashboard*.
 
 # Findings
 > During which days am I most and least productive?
-[Stacked_bar_graph](assets/graph-1.png)
+
+![Stacked_bar_graph](assets/graph-1.png)
+
 The bar graph showed that Fridays are the days where I'm most productive, and Thursdays are the least.
 
 > What relationship exists between studying and programming? Are they both proportional/inversely proportional to each other?
-[Scatterplot](assets/graph-2.png)
+
+![Scatterplot](assets/graph-2.png)
+
 The two appear to be inversely proportional, as the more I study, the less I program, and vice versa.
 
 > Does sleep hours affect productivity?
-[Stacked_bar_graph](assets/graph-3.png)
+
+![Stacked_bar_graph](assets/graph-3.png)
+
 From the graph, I would say they do, as sleep hours <7 do not have many productive days.
 
 > What was the progression of reading books each day? Was it positive/negative/stagnant?
-[Line_graph](assets/graph-4.png)
+
+![Line_graph](assets/graph-4.png)
+
 There seems to be high spikes in days where I read a lot, but generally, it seems to be stagnant.
 
 > What is the distribution of 'low', 'moderate', and 'high' productivity classes
-[Pie_chart](assets/graph-5.png)
+
+![Pie_chart](assets/graph-5.png)
+
 As seen above, the majority of days I'm at a moderate productivity level, and I seem to be more likely to not be productive than to be highly productive.
 
 # List of files in the project
