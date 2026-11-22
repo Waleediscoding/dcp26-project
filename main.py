@@ -1,4 +1,6 @@
 from application import SceneManager
+import sqlite3
+import pandas as pd
 
 app = SceneManager(title="Dashboard", w=800, h=600)
 

@@ -192,6 +192,11 @@ class DataGraphScene(DBConnection, tk.Frame):
                 "sql": 'SELECT Date, "Reading (Minutes)" FROM productivity_metrics',
                 "xlabel": "Time (Days)",
                 "ylabel": "Minutes"
+            },
+            {
+                "title": "Distribution of Low, Moderate, and High Classes Throughout the Days",
+                "sql": 'SELECT Productivity, COUNT(*) as counts FROM productivity_metrics GROUP BY Productivity',
+                "label": "Productivity"
             }
             ]
         
@@ -231,6 +236,9 @@ class DataGraphScene(DBConnection, tk.Frame):
         chosen_graph = self.graph_data[self.graph_idx]
         
         self.ax.clear()
+        self.fig.clear()
+        self.ax = self.fig.add_subplot(111)
+        
         df = pd.read_sql(chosen_graph["sql"], self.conn)
         
         if self.graph_idx == GRAPH_1:
@@ -260,12 +268,19 @@ class DataGraphScene(DBConnection, tk.Frame):
         
         elif self.graph_idx == GRAPH_4:
             xs = [i for i in range(len(df))]
-            
             self.ax.plot(xs, df["Reading (Minutes)"], marker='o', color="#14de79")
+        
+        elif self.graph_idx == GRAPH_5:
+            self.ax.pie(x=df["counts"], labels=df["Productivity"], colors=["#14de79", "#de1414", "#dede14"],
+                        autopct="%1.1f%%", startangle=90
+            )
+            self.ax.set_aspect("equal")
             
         self.ax.set_title(chosen_graph["title"])
-        self.ax.set_xlabel(chosen_graph["xlabel"])
-        self.ax.set_ylabel(chosen_graph["ylabel"])
+        if self.graph_idx != GRAPH_5: # Because graph 5 is a pie chart
+            self.ax.set_xlabel(chosen_graph["xlabel"])
+            self.ax.set_ylabel(chosen_graph["ylabel"])
+        
         self.canvas.draw_idle()
         
         
