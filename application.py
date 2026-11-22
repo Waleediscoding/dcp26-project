@@ -5,30 +5,7 @@ from matplotlib.backends.backend_tkagg import FigureCanvasTkAgg
 import pandas as pd
 import sqlite3
 
-# Button macros
-NAV_BTN_WIDTH_RATIO = 0.2
-NAV_BTN_HEIGHT_RATIO = 0.08
-
-BACK_BTN_WIDTH_RATIO = 0.12
-BACK_BTN_HEIGHT_RATIO = 0.08
-
-# Graph frame macros
-GRAPH_FRAME_WIDTH_RATIO = 1
-GRAPH_FRAME_HEIGHT_RATIO = 1 - BACK_BTN_HEIGHT_RATIO * 2
-
-# Carousel button macros
-LEFT = -1
-RIGHT = 1
-INITIAL = 0
-CAROUSEL_BTN_Y = BACK_BTN_HEIGHT_RATIO + GRAPH_FRAME_HEIGHT_RATIO
-CAROUSEL_RIGHT_BTN = 1 - BACK_BTN_WIDTH_RATIO
-
-# Graph Indices
-GRAPH_1 = 0
-GRAPH_2 = 1
-GRAPH_3 = 2
-GRAPH_4 = 3
-GRAPH_5 = 4
+import config
 
 class SceneManager(tk.Tk):
     def __init__(self, title, w, h):
@@ -46,7 +23,7 @@ class SceneManager(tk.Tk):
         self.scenes = {}
         
         # Populate scenes to grid
-        for Scene in (MainMenuScene, DataGraphScene, QueryScene, HelpScene):
+        for Scene in (MainMenuScene, DataGraphScene, QueryScene, InsertScene, HelpScene):
             name = Scene.__name__
             scene = Scene(parent=container, manager=self)
             self.scenes[name] = scene
@@ -61,6 +38,7 @@ class SceneManager(tk.Tk):
         
         # Label config
         style.configure('menu.TLabel', foreground='#f2f2f2', background='#d5d5d5', font=("monospace", 30, "bold"))
+        style.configure('help.TLabel', foreground='#f2f2f2', background='#2f2f2f', font=("monospace", 12))
         
         # Button config - regular
         style.configure('app.TButton', foreground="#f2f2f2", background="#73ca1c", font=("monospace", 18), relief='flat')
@@ -120,31 +98,40 @@ class MainMenuScene(DBConnection, tk.Frame):
             command=lambda: manager.show_scene("DataGraphScene"),
             style='app.TButton'
         )
-        btn_datagraph.place(relx=0.5, rely=0.4, anchor='center', relwidth=NAV_BTN_WIDTH_RATIO, relheight=NAV_BTN_HEIGHT_RATIO)
+        
+        btn_datagraph.place(relx=0.5, rely=0.4, anchor='center', relwidth=config.NAV_BTN_WIDTH_RATIO, relheight=config.NAV_BTN_HEIGHT_RATIO)
         
         btn_query = ttk.Button(
             self, text="Querying",
             command=lambda: manager.show_scene("QueryScene"),
             style='app.TButton'
         )
-        btn_query.place(relx=0.5, rely=0.5, anchor='center', relwidth=NAV_BTN_WIDTH_RATIO, relheight=NAV_BTN_HEIGHT_RATIO)
+        btn_query.place(relx=0.5, rely=0.5, anchor='center', relwidth=config.NAV_BTN_WIDTH_RATIO, relheight=config.NAV_BTN_HEIGHT_RATIO)
+
+        btn_insert = ttk.Button(
+            self, text="Insertion",
+            command=lambda: manager.show_scene("InsertScene"),
+            style='app.TButton'
+        )
+        btn_insert.place(relx=0.5, rely=0.6, anchor='center', relwidth=config.NAV_BTN_WIDTH_RATIO, relheight=config.NAV_BTN_HEIGHT_RATIO)
 
         btn_help = ttk.Button(
             self, text="Help",
             command=lambda: self.manager.show_scene("HelpScene"),
             style='help.TButton'
         )
-        btn_help.place(relx=0.5, rely=0.7, anchor='center', relwidth=NAV_BTN_WIDTH_RATIO, relheight=NAV_BTN_HEIGHT_RATIO)
+        btn_help.place(relx=0.5, rely=0.7, anchor='center', relwidth=config.NAV_BTN_WIDTH_RATIO, relheight=config.NAV_BTN_HEIGHT_RATIO)
         
         btn_quit = ttk.Button(
             self, text="QUIT",
             command=lambda: self.exit_program(),
             style='quit.TButton'
         )
-        btn_quit.place(relx=0.5, rely=0.8, anchor='center', relwidth=NAV_BTN_WIDTH_RATIO, relheight=NAV_BTN_HEIGHT_RATIO)
+        btn_quit.place(relx=0.5, rely=0.8, anchor='center', relwidth=config.NAV_BTN_WIDTH_RATIO, relheight=config.NAV_BTN_HEIGHT_RATIO)
         
         self.bind("g", lambda e: self.manager.show_scene("DataGraphScene"))
         self.bind("q", lambda e: self.manager.show_scene("QueryScene"))
+        self.bind("i", lambda e: self.manager.show_scene("InsertScene"))
         self.bind("h", lambda e: self.manager.show_scene("HelpScene"))
         self.bind("<Escape>", lambda e: self.exit_program())
     
@@ -163,10 +150,10 @@ class DataGraphScene(DBConnection, tk.Frame):
             command=lambda: self.manager.show_scene("MainMenuScene"),
             style='app.TButton'
         )
-        btn_back.place(relx=0, rely=0, relwidth=BACK_BTN_WIDTH_RATIO, relheight=BACK_BTN_HEIGHT_RATIO)
+        btn_back.place(relx=0, rely=0, relwidth=config.BACK_BTN_WIDTH_RATIO, relheight=config.BACK_BTN_HEIGHT_RATIO)
         
         figure_frame = tk.Frame(self)
-        figure_frame.place(relx=0, rely=BACK_BTN_HEIGHT_RATIO, relwidth=GRAPH_FRAME_WIDTH_RATIO, relheight=GRAPH_FRAME_HEIGHT_RATIO)
+        figure_frame.place(relx=0, rely=config.BACK_BTN_HEIGHT_RATIO, relwidth=config.GRAPH_FRAME_WIDTH_RATIO, relheight=config.GRAPH_FRAME_HEIGHT_RATIO)
     
         self.graph_data = [
             {
@@ -208,25 +195,25 @@ class DataGraphScene(DBConnection, tk.Frame):
         self.canvas = FigureCanvasTkAgg(self.fig, master=figure_frame)
         self.canvas.get_tk_widget().place(relx=0, rely=0, relwidth=1, relheight=1)
 
-        self.set_graph(INITIAL) # Initial graph load-up
+        self.set_graph(config.INITIAL) # Initial graph load-up
         
         btn_left = ttk.Button(
             master=self, text='<<',
-            command=lambda: self.set_graph(LEFT),
+            command=lambda: self.set_graph(config.LEFT),
             style='app.TButton'
         )
-        btn_left.place(relx=0, rely=CAROUSEL_BTN_Y, relwidth=BACK_BTN_WIDTH_RATIO, relheight=BACK_BTN_HEIGHT_RATIO)
+        btn_left.place(relx=0, rely=config.CAROUSEL_BTN_Y, relwidth=config.BACK_BTN_WIDTH_RATIO, relheight=config.BACK_BTN_HEIGHT_RATIO)
 
         btn_right = ttk.Button(
             master=self, text='>>',
-            command=lambda: self.set_graph(RIGHT),
+            command=lambda: self.set_graph(config.RIGHT),
             style='app.TButton'
         )
-        btn_right.place(relx=CAROUSEL_RIGHT_BTN, rely=CAROUSEL_BTN_Y, relwidth=BACK_BTN_WIDTH_RATIO, relheight=BACK_BTN_HEIGHT_RATIO)
+        btn_right.place(relx=config.CAROUSEL_RIGHT_BTN, rely=config.CAROUSEL_BTN_Y, relwidth=config.BACK_BTN_WIDTH_RATIO, relheight=config.BACK_BTN_HEIGHT_RATIO)
 
         # Keybinds
-        self.bind("<Left>", lambda e: self.set_graph(LEFT))
-        self.bind("<Right>", lambda e: self.set_graph(RIGHT))
+        self.bind("<Left>", lambda e: self.set_graph(config.LEFT))
+        self.bind("<Right>", lambda e: self.set_graph(config.RIGHT))
         self.bind("<Escape>", lambda e: self.manager.show_scene("MainMenuScene"))
         
     def set_graph(self, direction):
@@ -241,7 +228,7 @@ class DataGraphScene(DBConnection, tk.Frame):
         
         df = pd.read_sql(chosen_graph["sql"], self.conn)
         
-        if self.graph_idx == GRAPH_1:
+        if self.graph_idx == config.GRAPH_1:
             days = df["Day"]
             lows = df["low_counts"]
             highs = df["high_counts"]
@@ -251,40 +238,40 @@ class DataGraphScene(DBConnection, tk.Frame):
             
             self.ax.legend()
         
-        elif self.graph_idx == GRAPH_2:
+        elif self.graph_idx == config.GRAPH_2:
             self.ax.scatter(x=df["Studying (Minutes)"], y=df["Programming (Minutes)"])
         
-        elif self.graph_idx == GRAPH_3:
+        elif self.graph_idx == config.GRAPH_3:
             hours = df["Sleep (Hours)"]
             lows = df["low_counts"]
             mods = df["mod_counts"]
             highs = df["high_counts"]
             
             self.ax.bar(x=hours, height=lows, label="Low", color='#de1414')
-            self.ax.bar(x=hours, height=mods, bottom=lows, label="Moderate", color="#dede14")
+            self.ax.bar(x=hours, height=mods, bottom=lows, label="Moderate", color="#ffff22")
             self.ax.bar(x=hours, height=highs, bottom=mods, label="High", color="#14de79")
             
             self.ax.legend()
         
-        elif self.graph_idx == GRAPH_4:
+        elif self.graph_idx == config.GRAPH_4:
             xs = [i for i in range(len(df))]
             self.ax.plot(xs, df["Reading (Minutes)"], marker='o', color="#14de79")
         
-        elif self.graph_idx == GRAPH_5:
-            self.ax.pie(x=df["counts"], labels=df["Productivity"], colors=["#14de79", "#de1414", "#dede14"],
+        elif self.graph_idx == config.GRAPH_5:
+            self.ax.pie(x=df["counts"], labels=df["Productivity"], colors=["#14de79", "#de1414", "#ffff22"],
                         autopct="%1.1f%%", startangle=90
             )
             self.ax.set_aspect("equal")
             
         self.ax.set_title(chosen_graph["title"])
-        if self.graph_idx != GRAPH_5: # Because graph 5 is a pie chart
+        if self.graph_idx != config.GRAPH_5: # Because graph 5 is a pie chart
             self.ax.set_xlabel(chosen_graph["xlabel"])
             self.ax.set_ylabel(chosen_graph["ylabel"])
         
         self.canvas.draw_idle()
         
         
-class QueryScene(tk.Frame, DBConnection):
+class QueryScene(DBConnection, tk.Frame):
     def __init__(self, parent, manager):
         super().__init__(parent, bg="#5d5d5d")
         self.manager = manager
@@ -294,12 +281,72 @@ class QueryScene(tk.Frame, DBConnection):
             command=lambda: self.manager.show_scene("MainMenuScene"),
             style='app.TButton'
         )
-        btn_back.place(relx=0, rely=0, relwidth=BACK_BTN_WIDTH_RATIO, relheight=BACK_BTN_HEIGHT_RATIO)
+        btn_back.place(relx=0, rely=0, relwidth=config.BACK_BTN_WIDTH_RATIO, relheight=config.BACK_BTN_HEIGHT_RATIO)
         
+        query_to_insert = "SELECT * FROM productivity_metrics"
+        sql_text = tk.Entry(master=self, border=0)
+        sql_text.place(relx=0.45, rely=0.5, anchor="center", relwidth=config.TEXTBOX_WIDTH_RATIO, relheight=config.TEXTBOX_HEIGHT_RATIO)
+        sql_text.insert(tk.END, query_to_insert)
+        
+        btn_enter = ttk.Button(
+            master=self,
+            text="Enter",
+            command=lambda: self.execute_query(sql_text),
+            style='app.TButton'
+        )
+        btn_enter.place(relx=config.ENTER_BTN_X, rely=0.5, anchor="center", relwidth=config.ENTER_BTN_WIDTH_RATIO, relheight=config.TEXTBOX_HEIGHT_RATIO)
+
         # Keybinds
         self.bind("<Escape>", lambda e: self.manager.show_scene("MainMenuScene"))
         
+    def execute_query(self, query_textbox):
+        query = query_textbox.get()
+        try:
+            df = pd.read_sql(query, self.conn)
+            
+            print(df)
+
+            query_textbox.delete(0, tk.END)
+        except:
+            print("Invalid query.")
+
+class InsertScene(DBConnection, tk.Frame):
+    def __init__(self, parent, manager):
+        super().__init__(parent, bg="#5d5d5d")
+        self.manager = manager
+
+        btn_back = ttk.Button(
+            self, text='Back',
+            command=lambda: self.manager.show_scene("MainMenuScene"),
+            style='app.TButton'
+        )
+        btn_back.place(relx=0, rely=0, relwidth=config.BACK_BTN_WIDTH_RATIO, relheight=config.BACK_BTN_HEIGHT_RATIO)
+
+        sql_text = tk.Entry(master=self, border=0)
+        sql_text.place(relx=0.45, rely=0.5, anchor="center", relwidth=config.TEXTBOX_WIDTH_RATIO, relheight=config.TEXTBOX_HEIGHT_RATIO)
         
+        btn_enter = ttk.Button(
+            master=self,
+            text="Enter",
+            command=lambda: self.execute_query(sql_text),
+            style='app.TButton'
+        )
+        btn_enter.place(relx=config.ENTER_BTN_X, rely=0.5, anchor="center", relwidth=config.ENTER_BTN_WIDTH_RATIO, relheight=config.TEXTBOX_HEIGHT_RATIO)
+        
+        # Keybinds
+        self.bind("<Escape>", lambda e: self.manager.show_scene("MainMenuScene"))
+    
+    def execute_query(self, query_textbox):
+        query = query_textbox.get()
+        try:
+            cursor = self.conn.cursor()
+            
+            cursor.execute(query)
+
+            query_textbox.delete(0, tk.END)
+        except:
+            print("Invalid format.")
+    
 class HelpScene(tk.Frame):
     def __init__(self, parent, manager):
         super().__init__(parent, bg="#5d5d5d")
@@ -310,8 +357,23 @@ class HelpScene(tk.Frame):
             command=lambda: self.manager.show_scene("MainMenuScene"),
             style='help.TButton'
         )
-        btn_back.place(relx=0, rely=0, relwidth=BACK_BTN_WIDTH_RATIO, relheight=BACK_BTN_HEIGHT_RATIO)
+        btn_back.place(relx=0, rely=0, relwidth=config.BACK_BTN_WIDTH_RATIO, relheight=config.BACK_BTN_HEIGHT_RATIO)
         
+        text_frame = tk.Frame(master=self, bg="#2f2f2f")
+        text_frame.place(relx=0.5, rely=0.5, anchor='center', relwidth=config.TEXTFRAME_WIDTH_RATIO, relheight=config.TEXTFRAME_HEIGHT_RATIO)
+        
+        text = """Shortcuts
+- G: Go to 'Data Graph'
+- Q: Go to 'Query'
+- I: Go to 'Insertion'
+- H: Go to 'Help'
+- Esc: Quit program (if in main menu); Go to 'Main Menu' (if not in main menu)
+- Left: Navigate left (in 'Data Graph')
+- Right: Navigate right (in 'Data Graph')
+- Enter: Submit query (in 'Query'/'Insertion')
+"""
+        
+        label = ttk.Label(master=text_frame, text=text, style='help.TLabel')
+        label.place(relx=0, rely=0)
         # Keybinds
         self.bind("<Escape>", lambda e: self.manager.show_scene("MainMenuScene"))
-    
