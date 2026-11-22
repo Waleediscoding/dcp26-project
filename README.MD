@@ -61,6 +61,8 @@ I plan to use
 | main.py | Self-written | Starts the program |
 | synchronise.py | Self-written | Synchronises database with the .csv |
 | application.py | Self-written | Contains the GUI code |
+| config.py | Self-written | Contains the relative dimensions/positions for each GUI widget |
+
 
 # References
 * Item 1
