@@ -77,7 +77,7 @@ All these pages are contained in a window which is named *Dashboard*.
 - The queries are ran via pandas' read_sql() API and stored in a df object to be used as data
 - To insert graphs as Tkinter objects, I used the Matplotlib backend *FigureCanvasTkAgg* which converts a Matplotlib figure to a Tkinter canvas
 - To let the user run read-only and insertion queries, I grabbed the text from the *Entry* widget and put it into read_sql() and conn.cursor.execute() respectively
-
+- Read-only queries and debug messages are logged to the console
 # Findings
 > During which days am I most and least productive?
 

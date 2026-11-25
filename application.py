@@ -39,6 +39,7 @@ class SceneManager(tk.Tk):
         # Label config
         style.configure('menu.TLabel', foreground='#f2f2f2', background='#d5d5d5', font=("monospace", 30, "bold"))
         style.configure('help.TLabel', foreground='#f2f2f2', background='#2f2f2f', font=("monospace", 12))
+        style.configure('fields.TLabel', foreground='#f2f2f2', background='#5d5d5d', font=('monospace', 8))
         
         # Button config - regular
         style.configure('app.TButton', foreground="#f2f2f2", background="#73ca1c", font=("monospace", 18), relief='flat')
@@ -307,8 +308,8 @@ class QueryScene(DBConnection, tk.Frame):
             print(df)
 
             query_textbox.delete(0, tk.END)
-        except:
-            print("Invalid query.")
+        except sqlite3.Error as e:
+            print(f"Error: {e}")
 
 class InsertScene(DBConnection, tk.Frame):
     def __init__(self, parent, manager):
@@ -322,8 +323,24 @@ class InsertScene(DBConnection, tk.Frame):
         )
         btn_back.place(relx=0, rely=0, relwidth=config.BACK_BTN_WIDTH_RATIO, relheight=config.BACK_BTN_HEIGHT_RATIO)
 
+        fields_label1 = ttk.Label(
+            master=self,
+            text='Date, Day, "Sleep (Hours)", "Reading (Minutes)", "Gaming (Minutes)"',
+            style='fields.TLabel'
+        )
+
+        fields_label2 = ttk.Label(
+            master=self,
+            text='"Studying (Minutes)", "Programming (Minutes)", "Misc Leisure (Minutes)", Productivity',
+            style='fields.TLabel'
+        )
+        
+        fields_label1.place(relx=0.5, rely=0.4, anchor='center')
+        fields_label2.place(relx=0.5, rely=0.45, anchor='center')
+        
         sql_text = tk.Entry(master=self, border=0)
         sql_text.place(relx=0.45, rely=0.5, anchor="center", relwidth=config.TEXTBOX_WIDTH_RATIO, relheight=config.TEXTBOX_HEIGHT_RATIO)
+        sql_text.insert(tk.END, "'25/11/2026', 'Wednesday', 7, 30, 60, 120, 90, 45, 'MODERATE'")
         
         btn_enter = ttk.Button(
             master=self,
@@ -337,15 +354,21 @@ class InsertScene(DBConnection, tk.Frame):
         self.bind("<Escape>", lambda e: self.manager.show_scene("MainMenuScene"))
     
     def execute_query(self, query_textbox):
-        query = query_textbox.get()
+        fields = query_textbox.get()
+        query = ('INSERT INTO productivity_metrics'
+                '(Date, Day, "Sleep (Hours)", "Reading (Minutes)", "Gaming (Minutes)",'
+                '"Studying (Minutes)", "Programming (Minutes)", "Misc Leisure (Minutes)", Productivity)'
+                f'VALUES ({fields})')
+        
         try:
             cursor = self.conn.cursor()
             
             cursor.execute(query)
-
+            self.conn.commit()
+            
             query_textbox.delete(0, tk.END)
-        except:
-            print("Invalid format.")
+        except sqlite3.Error as e:
+            print(f"Error: {e}")
     
 class HelpScene(tk.Frame):
     def __init__(self, parent, manager):
