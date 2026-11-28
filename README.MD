@@ -120,9 +120,23 @@ As seen above, the majority of days I'm at a moderate productivity level, and I 
 
 
 # References
-* Item 1
-* Item 2
+* [Tkinter Reference](https://tkdocs.com/pyref/)
+* [SQLite Reference](https://realpython.com/ref/stdlib/sqlite3/)
+* [Python Reference](https://www.w3schools.com/python/python_reference.asp)
+* [GUI Playlist](https://www.youtube.com/playlist?list=PLpMixYKO4EXeaGnqT_YWx7_mA77bz2VqM)
+
 
 # What I am most proud of in the assignment
+When creating the mechanism for handling database connections between pages, I independently discovered the concept of Mixins.
+
+Mixins are classes whose only purpose is to be inherited by others, they encapsulate small, specialised pieces of code and resources that is shared amongst child classes.
+
+In my case the shared resource was the database connection, I did not want to re-establish connection each time I opened a new page, which is why I created the *DBConnection* Mixin.
+
 
 # What I learned
+Though I learned a lot about software design in general, the three key things I learned that I thought were worth noting are:
+
+* Code Encapsulation: I believe I encapsulated code well into separate files, functions, and classes alike
+* Comfortability with Software: I feel more comfortable starting projects with the knowledge I know now
+* Merging Technologies Together: My app's stack contained various technologies such as a database API (SQLite3), a GUI API (Tkinter), a plotter (Matplotlib), and a data science tool (pandas) which worked well in tandem
