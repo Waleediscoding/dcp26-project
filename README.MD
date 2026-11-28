@@ -140,3 +140,16 @@ Though I learned a lot about software design in general, the three key things I 
 * Code Encapsulation: I believe I encapsulated code well into separate files, functions, and classes alike
 * Comfortability with Software: I feel more comfortable starting projects with the knowledge I know now
 * Merging Technologies Together: My app's stack contained various technologies such as a database API (SQLite3), a GUI API (Tkinter), a plotter (Matplotlib), and a data science tool (pandas) which worked well in tandem
+
+
+# Evidence of Data Collection
+![Misc_leisure_nb](assets/timer-misc-leisure.jpg)
+
+This is how I tally up the minutes over the day (to measure Misc Leisure / Day)
+
+The previous records could not be ascertained as the book I wrote them in cannot be found.
+
+![Programming_timer](assets/timer-programming.png)
+![Reading_timer](assets/timer-reading.png)
+
+I use the built-in timer app to time the minutes/hours I read, code, and study for.
