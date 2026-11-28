@@ -58,7 +58,7 @@ To initiate a dashboard instance.
 Shortcuts for speed of use are available in the 'Help' section of the dashboard.
 
 # How it works:
-## Contents
+### Contents
 The program consists of 4 main pages, which are as follows:
 - Data Graph: 5 graphs/charts that help answer the 5 [questions](#questions)
 - Query: a way to enter read-only SQL queries, whose results are logged into the console
@@ -69,7 +69,7 @@ There also is a *QUIT* button, which kills the program.
 
 All these pages are contained in a window which is named *Dashboard*.
 
-## Runtime Behaviour
+### Runtime Behaviour
 - When a dashboard is initiated after running `main.py`, a connection to the database is established via *SQLite3*
 - The connection is then borrowed to the three pages (Data Graph, Query, Insertion) that interact with the database in some way
 - The 'borrowing' is done via a class which establishes the connection, stores it in an object, and lends itself to be inherited by classes that require it
