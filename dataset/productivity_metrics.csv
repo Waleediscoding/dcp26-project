@@ -37,3 +37,5 @@ Date,Day,Sleep (Hours),Reading (Minutes),Gaming (Minutes),Studying (Minutes),Pro
 23/11/2026,Monday,7,20,0,60,30,180,MODERATE
 24/11/2026,Tuesday,8,25,0,45,180,220,HIGH
 25/11/2026,Wednesday,9,15,0,20,180,230,MODERATE
+26/11/2026,Thursday,5,45,0,20,45,250,LOW
+27/11/2026,Friday,9,35,0,45,140,240,MODERATE
